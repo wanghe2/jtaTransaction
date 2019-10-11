@@ -1,0 +1,36 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace:指定为哪个接口提供配置 --> 
+<mapper namespace="com.wang.dao.user.UserDao">
+
+	<select id="queryAll" resultType="User">
+		SELECT *
+		FROM t_user_info_copy
+	</select>
+	
+	<select id="queryById" resultType="User" parameterType="long">
+		SELECT *
+		FROM t_user_info_copy	 
+		where id =#{id}
+	</select>
+	
+	<update id="updateUser" parameterType="User">
+		update T_USER_INFO_COPY set person_name=#{personName}
+		<if test="email!=null">
+			, email=#{email} 
+		</if> 
+		<if test="phone!=null">
+			, phone=#{phone} 
+		</if>  
+	     where id =#{id}
+	</update>
+	
+	<insert id="insertUser" parameterType="User">
+		INSERT INTO T_USER_INFO_COPY
+		(ID, PERSON_NAME, EMAIL, PHONE)
+		VALUES
+		(#{id}, #{personName}, #{email},#{phone})
+	</insert>
+	
+</mapper>
